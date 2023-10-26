@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo_app/core/network_layer/firestore_utils.dart';
 import 'package:todo_app/modal/task_modal.dart';
 
 class TaskItemWidget extends StatelessWidget {
@@ -22,8 +23,8 @@ class TaskItemWidget extends StatelessWidget {
           SlidableAction(
             // An action can be bigger than the others.
             flex: 2,
-            onPressed: (BuildContext context) {
-
+            onPressed: (BuildContext context)async {
+              await FirestoreUtils.deletDataFromFirestore(taskModal);
             },
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
@@ -59,14 +60,17 @@ class TaskItemWidget extends StatelessWidget {
 
                 children: [
                   Text(
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                       taskModal.title,
                   style: theme.textTheme.titleLarge!.copyWith(color:theme.primaryColor),
                   ),
                   SizedBox(height: 10,),
                   Row(
                     children: [
-                      Icon(Icons.access_time_rounded) ,
+                      //Icon(Icons.access_time_rounded) ,
                       Text(
+                        overflow: TextOverflow.ellipsis,
                           taskModal.description,
                       style: theme.textTheme.bodySmall!.copyWith(color:Colors.black,fontSize: 15),
                       ),

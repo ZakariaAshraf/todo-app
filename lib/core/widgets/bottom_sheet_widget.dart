@@ -71,8 +71,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                     ShowCalendar(context);
                   },
                   child: Text(
+                    DateFormat.yMMMd().format(selectedTime),
                     textAlign: TextAlign.center,
-                    selectedTime.toString(),
                     style: theme.textTheme.bodyMedium!
                         .copyWith(color: theme.primaryColor),
                   ),
@@ -89,6 +89,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                       isDone: false,
                     );
                     await FirestoreUtils.addDataToFirestore(modal);
+                    Navigator.pop(context);
                     print(titleController.text);
                   }
                 },

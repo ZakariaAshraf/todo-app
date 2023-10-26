@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:todo_app/home_layout/home_layout_view.dart';
 import 'package:todo_app/pages/home_view/home_view.dart';
+import 'package:todo_app/pages/login/login_view.dart';
+import 'package:todo_app/pages/register/register_view.dart';
 import 'package:todo_app/pages/splash_view/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,7 +36,11 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName:(context) => SplashScreen(),
         HomeLayoutView.routeName:(context) => HomeLayoutView(),
         HomeView.routeName:(context) => HomeView(),
+        LoginView.routeName:(context) =>LoginView(),
+        RegisterView.routeName:(context) => RegisterView(),
+
       },
+      builder: EasyLoading.init(),
     );
   }
 }

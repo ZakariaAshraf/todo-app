@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/home_layout/home_layout_view.dart';
+import 'package:todo_app/pages/login/login_view.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = "Splash-Screen";
@@ -9,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 3),(){
-      Navigator.pushNamedAndRemoveUntil(context, HomeLayoutView.routeName, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, LoginView.routeName, (route) => false);
     });
     var mediaQuery=MediaQuery.of(context).size;
     return Scaffold(

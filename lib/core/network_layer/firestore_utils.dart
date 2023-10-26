@@ -28,4 +28,8 @@ class FirestoreUtils {
    var snapshot=await getCollection().get();
    return snapshot.docs.map((element) =>element.data()).toList();
   }
+ static Stream<QuerySnapshot<TaskModal>> getRealDataFromFirestore(){
+   var snapshot= getCollection().snapshots();
+   return snapshot;
+ }
 }

@@ -1,4 +1,5 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/core/network_layer/firestore_utils.dart';
 import 'package:todo_app/core/widgets/task_item_widget.dart';
@@ -48,8 +49,52 @@ class HomeView extends StatelessWidget {
           ],
         ),
         SizedBox(height: 40),
-        FutureBuilder<List<TaskModal>>(
-          future: FirestoreUtils.getDataFromFirestore(
+        // FutureBuilder<List<TaskModal>>(
+        //   future: FirestoreUtils.getDataFromFirestore(
+        //
+        //   ),
+        //   builder: (context, snapshot) {
+        //     if(snapshot.hasError){
+        //       return Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           Text(snapshot.error.toString()),
+        //           SizedBox(height: 40),
+        //           IconButton(onPressed: () {
+        //             //call the api
+        //           }, icon: Icon(
+        //             Icons.refresh,
+        //           ))
+        //         ],
+        //
+        //
+        //       );
+        //     }
+        //     if(snapshot.connectionState==ConnectionState.waiting) {
+        //       return Center(
+        //         child: CircularProgressIndicator(
+        //           color: theme.primaryColor,
+        //         ),
+        //       );
+        //     }
+        //     var tasksList = snapshot.data ?? [];
+        //     return Expanded(
+        //         child: ListView.builder(
+        //           padding: EdgeInsets.zero,
+        //           itemBuilder: (context, index) => TaskItemWidget(taskModal: tasksList[index]),
+        //           itemCount: tasksList.length,
+        //         ));
+        //   },
+        // ),
+
+        // Expanded(
+        //     child: ListView.builder(
+        //       padding: EdgeInsets.zero,
+        //   itemBuilder: (context, index) => TaskItemWidget(),
+        //   itemCount: 5,
+        // )),
+        StreamBuilder<QuerySnapshot<TaskModal>>(
+          stream: FirestoreUtils.getRealDataFromFirestore(
 
           ),
           builder: (context, snapshot) {
@@ -76,7 +121,7 @@ class HomeView extends StatelessWidget {
                 ),
               );
             }
-            var tasksList = snapshot.data ?? [];
+           var tasksList = snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
             return Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
@@ -85,12 +130,7 @@ class HomeView extends StatelessWidget {
                 ));
           },
         ),
-        // Expanded(
-        //     child: ListView.builder(
-        //       padding: EdgeInsets.zero,
-        //   itemBuilder: (context, index) => TaskItemWidget(),
-        //   itemCount: 5,
-        // )),
+
       ],
     );
   }
